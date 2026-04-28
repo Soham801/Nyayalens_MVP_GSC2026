@@ -14,7 +14,170 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      complaints: {
+        Row: {
+          complaint_text: string
+          created_at: string
+          id: string
+          language: string
+          scan_id: string | null
+          status: string
+          user_id: string
+          work_id: string | null
+        }
+        Insert: {
+          complaint_text: string
+          created_at?: string
+          id?: string
+          language?: string
+          scan_id?: string | null
+          status?: string
+          user_id: string
+          work_id?: string | null
+        }
+        Update: {
+          complaint_text?: string
+          created_at?: string
+          id?: string
+          language?: string
+          scan_id?: string | null
+          status?: string
+          user_id?: string
+          work_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "complaints_scan_id_fkey"
+            columns: ["scan_id"]
+            isOneToOne: false
+            referencedRelation: "scans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "complaints_work_id_fkey"
+            columns: ["work_id"]
+            isOneToOne: false
+            referencedRelation: "works"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          craft_type: string | null
+          created_at: string
+          id: string
+          language: string
+          name: string
+        }
+        Insert: {
+          craft_type?: string | null
+          created_at?: string
+          id: string
+          language?: string
+          name: string
+        }
+        Update: {
+          craft_type?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      scans: {
+        Row: {
+          ai_reasoning: string | null
+          created_at: string
+          id: string
+          matched_work_id: string | null
+          scanned_image_path: string
+          scanned_image_url: string
+          similarity_score: number
+          user_id: string
+        }
+        Insert: {
+          ai_reasoning?: string | null
+          created_at?: string
+          id?: string
+          matched_work_id?: string | null
+          scanned_image_path: string
+          scanned_image_url: string
+          similarity_score?: number
+          user_id: string
+        }
+        Update: {
+          ai_reasoning?: string | null
+          created_at?: string
+          id?: string
+          matched_work_id?: string | null
+          scanned_image_path?: string
+          scanned_image_url?: string
+          similarity_score?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scans_matched_work_id_fkey"
+            columns: ["matched_work_id"]
+            isOneToOne: false
+            referencedRelation: "works"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      works: {
+        Row: {
+          ai_description: string | null
+          ai_tags: string[] | null
+          certificate_id: string
+          created_at: string
+          id: string
+          image_path: string
+          image_url: string
+          latitude: number | null
+          location_text: string | null
+          longitude: number | null
+          perceptual_hash: string | null
+          status: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          ai_description?: string | null
+          ai_tags?: string[] | null
+          certificate_id: string
+          created_at?: string
+          id?: string
+          image_path: string
+          image_url: string
+          latitude?: number | null
+          location_text?: string | null
+          longitude?: number | null
+          perceptual_hash?: string | null
+          status?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          ai_description?: string | null
+          ai_tags?: string[] | null
+          certificate_id?: string
+          created_at?: string
+          id?: string
+          image_path?: string
+          image_url?: string
+          latitude?: number | null
+          location_text?: string | null
+          longitude?: number | null
+          perceptual_hash?: string | null
+          status?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
